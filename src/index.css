@@ -1,0 +1,333 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom CSS Variables */
+@layer base {
+  :root {
+    --color-primary-50: #eff6ff;
+    --color-primary-100: #dbeafe;
+    --color-primary-200: #bfdbfe;
+    --color-primary-300: #93c5fd;
+    --color-primary-400: #60a5fa;
+    --color-primary-500: #3b82f6;
+    --color-primary-600: #2563eb;
+    --color-primary-700: #1d4ed8;
+    --color-primary-800: #1e40af;
+    --color-primary-900: #1e3a8a;
+
+    --color-secondary-50: #f0f9ff;
+    --color-secondary-100: #e0f2fe;
+    --color-secondary-200: #bae6fd;
+    --color-secondary-300: #7dd3fc;
+    --color-secondary-400: #38bdf8;
+    --color-secondary-500: #0ea5e9;
+    --color-secondary-600: #0284c7;
+    --color-secondary-700: #0369a1;
+    --color-secondary-800: #075985;
+    --color-secondary-900: #0c4a6e;
+
+    --color-accent-50: #fef3c7;
+    --color-accent-100: #fde68a;
+    --color-accent-200: #fcd34d;
+    --color-accent-300: #fbbf24;
+    --color-accent-400: #f59e0b;
+    --color-accent-500: #d97706;
+    --color-accent-600: #b45309;
+    --color-accent-700: #92400e;
+    --color-accent-800: #78350f;
+    --color-accent-900: #451a03;
+  }
+}
+
+/* Custom Scrollbar */
+@layer utilities {
+  /* Webkit browsers */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-400 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-500;
+  }
+
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #9ca3af #f3f4f6;
+  }
+}
+
+/* Custom Animations */
+@layer utilities {
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slide-in {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes progress {
+    from {
+      width: 0%;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.6s ease-out;
+  }
+
+  .animate-slide-in {
+    animation: slide-in 0.6s ease-out;
+  }
+
+  .animate-progress {
+    animation: progress 3s ease-in-out;
+  }
+}
+
+/* Custom Component Styles */
+@layer components {
+  /* Primary Button Hover Effect */
+  .btn-primary-hover {
+    @apply transition-all duration-200 hover:shadow-lg hover:scale-105;
+  }
+
+  /* Card Hover Effect */
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+  }
+
+  /* Input Focus Styles */
+  .input-focus {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent;
+  }
+
+  /* Link Hover Underline */
+  .link-hover {
+    @apply relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-current after:transition-all hover:after:w-full;
+  }
+}
+
+/* Global Styles */
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply text-gray-900 antialiased;
+  }
+
+  /* Headings */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+  }
+
+  /* Links */
+  a {
+    @apply transition-colors duration-200;
+  }
+
+  /* Images */
+  img {
+    @apply max-w-full h-auto;
+  }
+
+  /* Form Elements */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="tel"],
+  input[type="number"],
+  textarea,
+  select {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent;
+  }
+
+  /* Fix for inputs with icons - IMPORTANT: This fixes the icon overlap issue */
+  input[type="text"].pl-10,
+  input[type="email"].pl-10,
+  input[type="password"].pl-10,
+  input[type="tel"].pl-10,
+  input[type="number"].pl-10 {
+    padding-left: 2.5rem !important;
+  }
+
+  /* Buttons */
+  button:disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+}
+
+/* Utility Classes for Aspect Ratios */
+@layer utilities {
+  .aspect-w-1 {
+    position: relative;
+    padding-bottom: 100%;
+  }
+  
+  .aspect-w-16 {
+    position: relative;
+    padding-bottom: 56.25%;
+  }
+  
+  .aspect-h-1,
+  .aspect-h-9 {
+    position: absolute;
+    inset: 0;
+  }
+}
+
+/* Loading Spinner */
+@layer components {
+  .spinner {
+    @apply inline-block w-8 h-8 border-4 border-gray-200 border-t-primary-600 rounded-full animate-spin;
+  }
+}
+
+/* Custom Grid for Product Cards */
+@layer utilities {
+  .product-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6;
+  }
+}
+
+/* Mobile Menu Overlay */
+@layer components {
+  .mobile-menu-overlay {
+    @apply fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden;
+  }
+}
+
+/* Admin Sidebar */
+@layer components {
+  .admin-sidebar {
+    @apply fixed top-16 left-0 bottom-0 w-64 bg-white shadow-md transform transition-transform duration-200 ease-in-out z-30;
+  }
+}
+
+/* Notification Badge */
+@layer components {
+  .notification-badge {
+    @apply absolute -top-1 -right-1 h-5 w-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center;
+  }
+}
+
+/* Price Tag */
+@layer components {
+  .price-tag {
+    @apply text-2xl font-bold text-primary-600;
+  }
+  
+  .price-tag-old {
+    @apply text-lg text-gray-400 line-through;
+  }
+}
+
+/* Status Badges */
+@layer components {
+  .badge-success {
+    @apply inline-flex px-2 py-1 text-xs font-medium rounded-full text-green-600 bg-green-100;
+  }
+  
+  .badge-warning {
+    @apply inline-flex px-2 py-1 text-xs font-medium rounded-full text-yellow-600 bg-yellow-100;
+  }
+  
+  .badge-error {
+    @apply inline-flex px-2 py-1 text-xs font-medium rounded-full text-red-600 bg-red-100;
+  }
+  
+  .badge-info {
+    @apply inline-flex px-2 py-1 text-xs font-medium rounded-full text-blue-600 bg-blue-100;
+  }
+}
+
+/* Table Styles */
+@layer components {
+  .table-responsive {
+    @apply overflow-x-auto -mx-4 sm:-mx-6 lg:-mx-8;
+  }
+  
+  .table-wrapper {
+    @apply inline-block min-w-full py-2 align-middle px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    @apply text-black bg-white;
+  }
+}
+
+/* Custom Focus Styles for Accessibility */
+@layer base {
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary-500;
+  }
+}
+
+/* Smooth Transitions */
+@layer base {
+  * {
+    @apply transition-colors duration-200;
+  }
+}
+
+/* Custom Container */
+@layer components {
+  .container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* Responsive Text */
+@layer utilities {
+  .text-responsive {
+    @apply text-sm sm:text-base lg:text-lg;
+  }
+}
+
+/* Z-Index Scale */
+@layer utilities {
+  .z-dropdown { z-index: 1000; }
+  .z-sticky { z-index: 1020; }
+  .z-fixed { z-index: 1030; }
+  .z-modal-backdrop { z-index: 1040; }
+  .z-modal { z-index: 1050; }
+  .z-popover { z-index: 1060; }
+  .z-tooltip { z-index: 1070; }
+}
