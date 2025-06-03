@@ -7,6 +7,8 @@ export default async function handler(
   req: VercelRequest,
   res: VercelResponse
 ) {
+  console.log('Login endpoint hit');
+  
   // Enable CORS
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -32,7 +34,10 @@ export default async function handler(
       return res.status(400).json({ message: 'Email and password are required' });
     }
 
+    console.log('Connecting to MongoDB...');
     const client = await clientPromise;
+    console.log('Connected to MongoDB');
+    
     const db = client.db('geargrow');
     const users = db.collection('users');
 
@@ -61,8 +66,13 @@ export default async function handler(
         role: user.role
       }
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Login error:', error);
-    res.status(500).json({ message: 'Server error' });
+    console.error('Error stack:', error.stack);
+    res.status(500).json({ 
+      message: 'Server error',
+      error: error.message,
+      details: process.env.NODE_ENV === 'development' ? error.stack : undefined
+    });
   }
 }
