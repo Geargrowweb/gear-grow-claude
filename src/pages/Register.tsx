@@ -76,11 +76,32 @@ const Register = () => {
 
     setIsLoading(true);
     
-    // Simulate API call
-    setTimeout(() => {
-      navigate('/verify-email');
+    try {
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          password: formData.password
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        navigate('/verify-email');
+      } else {
+        setErrors({ general: data.message });
+      }
+    } catch (error) {
+      setErrors({ general: 'Something went wrong. Please try again.' });
+    } finally {
       setIsLoading(false);
-    }, 1500);
+    }
   };
 
   return (
@@ -103,6 +124,12 @@ const Register = () => {
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="bg-white px-8 py-8 rounded-lg shadow-md">
+            {errors.general && (
+              <div className="rounded-md bg-red-50 p-4 mb-4">
+                <p className="text-sm text-red-800">{errors.general}</p>
+              </div>
+            )}
+            
             <div className="space-y-5">
               {/* Name Field */}
               <div>
